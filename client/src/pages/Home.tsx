@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import Header from "@/components/Header";
 import FilterSidebar from "@/components/FilterSidebar";
 import ProductGrid from "@/components/ProductGrid";
@@ -8,15 +9,51 @@ import Pagination from "@/components/Pagination";
 import { FilterState, Product, PaginationInfo } from "@/lib/types";
 
 export default function Home() {
+  const [location] = useLocation();
+  const searchParams = new URLSearchParams(location.split('?')[1] || '');
+  
+  // Get category from URL, if any
+  const categoryParam = searchParams.get('category');
+  const materialParam = searchParams.get('material');
+  
+  // Map category to the appropriate size values (categories in our data model)
+  const getCategorySizes = (category: string | null) => {
+    switch(category) {
+      case 'cartoon': return ['Cartoon Characters'];
+      case 'portraits': return ['Face Portraits'];
+      case 'digital': return ['Digital Art'];
+      default: return [];
+    }
+  };
+  
+  // Initialize state with URL parameters if present
   const [filters, setFilters] = useState<FilterState>({
     price: { min: 0, max: 1000 },
-    size: [],
-    color: [],
+    size: getCategorySizes(categoryParam),
+    color: materialParam ? [materialParam] : [],
     brand: [],
     sort: "default",
-    page: 1,
+    page: parseInt(searchParams.get('page') || '1'),
     limit: 9
   });
+  
+  // Effect to update filters when URL parameters change
+  useEffect(() => {
+    const newSizes = getCategorySizes(categoryParam);
+    const newMaterials = materialParam ? [materialParam] : [];
+    
+    if (
+      (newSizes.length > 0 && !filters.size.includes(newSizes[0])) || 
+      (newMaterials.length > 0 && !filters.color.includes(newMaterials[0]))
+    ) {
+      setFilters(prev => ({
+        ...prev,
+        size: newSizes.length ? newSizes : prev.size,
+        color: newMaterials.length ? newMaterials : prev.color,
+        page: 1 // Reset to first page when filters change
+      }));
+    }
+  }, [categoryParam, materialParam]);
 
   // Build the query params based on current filters
   const getQueryParams = () => {
