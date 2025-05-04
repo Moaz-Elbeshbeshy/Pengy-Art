@@ -51,9 +51,9 @@ const mockProducts = [
   },
   {
     id: 5,
-    name: "Nature's Whisper",
+    name: "Mushroom Trip",
     price: 165.00,
-    image: "https://images.unsplash.com/photo-1571115764595-644a1f56a55c",
+    image: "https://res.cloudinary.com/dsoglviw7/image/upload/v1746371922/mushroom_trip_vkazvz.jpg",
     brand: "Olivia Kim",
     company: "nature",
     featured: true,
@@ -62,9 +62,9 @@ const mockProducts = [
   },
   {
     id: 6,
-    name: "Pop Culture Icons",
+    name: "Krisz the Turtle",
     price: 189.00,
-    image: "https://images.unsplash.com/photo-1558697702-9f517a5a0b05",
+    image: "https://res.cloudinary.com/dsoglviw7/image/upload/v1746371921/Krisz_u29vph.jpg",
     brand: "Alex Thompson",
     company: "pop",
     featured: true,
@@ -84,9 +84,9 @@ const mockProducts = [
   },
   {
     id: 8,
-    name: "Room Wall Characters",
+    name: "Kilian",
     price: 207.00,
-    image: "https://images.unsplash.com/photo-1637340532483-9ac801331e35",
+    image: "https://res.cloudinary.com/dsoglviw7/image/upload/v1746371922/Kilian_k6bqym.jpg",
     brand: "Daniel Lee",
     company: "cartoon",
     featured: false,
@@ -106,9 +106,9 @@ const mockProducts = [
   },
   {
     id: 10,
-    name: "Digital Portrait Study",
+    name: "Toddler",
     price: 125.00,
-    image: "https://images.unsplash.com/photo-1596726038553-9b63eef0df73",
+    image: "https://res.cloudinary.com/dsoglviw7/image/upload/v1746371924/toddler_ck5div.jpg",
     brand: "Ryan Parker",
     company: "portrait",
     featured: false,
@@ -147,11 +147,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const productId = parseInt(req.params.id);
       const product = mockProducts.find(p => p.id === productId);
-      
+
       if (!product) {
         return res.status(404).json({ error: 'Product not found' });
       }
-      
+
       res.json(product);
     } catch (error) {
       console.error('Error fetching product:', error);
@@ -185,14 +185,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Filter by company/brand
       if (company) {
         const companies = company.split(',');
-        filteredProducts = filteredProducts.filter(product => 
+        filteredProducts = filteredProducts.filter(product =>
           companies.includes(product.company.toLowerCase())
         );
       }
 
       // Filter by name
       if (name) {
-        filteredProducts = filteredProducts.filter(product => 
+        filteredProducts = filteredProducts.filter(product =>
           product.name.toLowerCase().includes(name.toLowerCase())
         );
       }
@@ -200,7 +200,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Filter by size
       if (size) {
         const sizes = size.split(',');
-        filteredProducts = filteredProducts.filter(product => 
+        filteredProducts = filteredProducts.filter(product =>
           product.size.some(s => sizes.includes(s))
         );
       }
@@ -208,7 +208,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Filter by color
       if (color) {
         const colors = color.split(',');
-        filteredProducts = filteredProducts.filter(product => 
+        filteredProducts = filteredProducts.filter(product =>
           product.color.some(c => colors.includes(c))
         );
       }
@@ -223,25 +223,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
             '<': (a: number, b: number) => a < b,
             '<=': (a: number, b: number) => a <= b,
           };
-          
+
           const regEx = /\b(>|>=|=|<|<=)\b/g;
           const filtersArray = Array.isArray(numericFilters) ? numericFilters : [numericFilters];
-          
+
           const filters = filtersArray.map(filterString => {
             // Replace operators with delimiter versions
             const parts = filterString.replace(regEx, (match) => `-${match}-`).split('-');
-            
+
             // Handle case where parts might be empty strings
             const field = parts.filter(Boolean)[0];
             const operator = parts.filter(Boolean)[1];
             const value = parts.filter(Boolean)[2];
-            
+
             if (field && operator && value && operatorMap[operator]) {
               return { field, operator, value: parseFloat(value) };
             }
             return null;
           }).filter(Boolean);
-          
+
           filteredProducts = filteredProducts.filter(product => {
             return filters.every(filter => {
               if (!filter) return true;
@@ -265,7 +265,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           for (const field of sortFields) {
             const isDesc = field.startsWith('-');
             const sortField = isDesc ? field.substring(1) : field;
-            
+
             // @ts-ignore - we know these fields exist
             if (a[sortField] < b[sortField]) {
               return isDesc ? 1 : -1;
@@ -286,7 +286,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         projectedProducts = filteredProducts.map(product => {
           const result = { ...product }; // Start with a copy of the product
           const keys = Object.keys(product);
-          
+
           // Keep only the requested fields
           for (const key of keys) {
             if (!fieldsList.includes(key)) {
@@ -294,7 +294,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               delete result[key];
             }
           }
-          
+
           return result;
         });
       }

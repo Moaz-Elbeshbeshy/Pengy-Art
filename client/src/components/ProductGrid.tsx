@@ -15,12 +15,12 @@ const artworkImages = [
   'https://images.unsplash.com/photo-1547891654-e66ed7ebb968', // Portrait art
   'https://images.unsplash.com/photo-1549490349-8643362247b5', // Modern digital art
   'https://images.unsplash.com/photo-1574182245530-967d9b3831af', // Street art
-  'https://images.unsplash.com/photo-1571115764595-644a1f56a55c', // Watercolor painting
-  'https://images.unsplash.com/photo-1558697702-9f517a5a0b05', // Pop art
+  'https://res.cloudinary.com/dsoglviw7/image/upload/v1746371922/mushroom_trip_vkazvz.jpg', // mushroom trip
+  'https://res.cloudinary.com/dsoglviw7/image/upload/v1746371921/Krisz_u29vph.jpg', // Krisz
   'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8', // Oil painting
-  'https://images.unsplash.com/photo-1637340532483-9ac801331e35', // Cartoon style
+  'https://res.cloudinary.com/dsoglviw7/image/upload/v1746371922/Kilian_k6bqym.jpg', // Kilian
   'https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb', // Landscape painting
-  'https://images.unsplash.com/photo-1596726038553-9b63eef0df73', // Digital portrait
+  'https://res.cloudinary.com/dsoglviw7/image/upload/v1746371924/toddler_ck5div.jpg', // Toddler
 ];
 
 export default function ProductGrid({ products, isLoading, error }: ProductGridProps) {
@@ -68,9 +68,9 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
         <Card key={product.id} className="overflow-hidden shadow-sm hover:shadow-md transition-shadow dark:bg-gray-800 dark:border-gray-700">
           <a href={`/product/${product.id}`} className="block">
             <div className="relative h-60 bg-gray-100 dark:bg-gray-700 overflow-hidden">
-              <img 
-                src={product.image || artworkImages[index % artworkImages.length]} 
-                alt={product.name} 
+              <img
+                src={product.image || artworkImages[index % artworkImages.length]}
+                alt={product.name}
                 className="w-full h-full object-cover object-center transition-transform hover:scale-105"
               />
               {product.featured && (
@@ -87,7 +87,7 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
                 </div>
                 <p className="font-bold text-blue-600 dark:text-blue-400">${product.price.toFixed(2)}</p>
               </div>
-              
+
               <div className="mt-3">
                 <div className="flex flex-wrap gap-1 mt-2">
                   {product.size && product.size.map((category, idx) => (
@@ -96,7 +96,7 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
                     </Badge>
                   ))}
                 </div>
-                
+
                 <div className="flex flex-wrap gap-1 mt-2">
                   {product.color && product.color.map((material, idx) => (
                     <Badge key={idx} variant="outline" className="bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
