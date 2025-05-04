@@ -165,12 +165,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
       <Header onSearch={handleSearchChange} />
       
-      <div className="container mx-auto px-4 py-4">
-        <h1 className="text-2xl font-bold mt-4 mb-6">PENGY ARTWORK COLLECTION</h1>
-      </div>
+      {/* Header padding */}
+      <div className="container mx-auto px-4 py-2"></div>
       
       {/* Main Content */}
       <div className="container mx-auto px-4 flex flex-col md:flex-row gap-6 pb-12 flex-grow">
@@ -186,9 +185,9 @@ export default function Home() {
           {/* Sorting Controls */}
           <div className="flex justify-end items-center mb-6">
             <div className="flex items-center text-sm">
-              <span className="mr-2">Sort By:</span>
+              <span className="mr-2 dark:text-gray-300">Sort By:</span>
               <select 
-                className="border-gray-300 rounded-md py-1 px-2 focus:ring-primary focus:border-primary"
+                className="border-gray-300 rounded-md py-1 px-2 focus:ring-primary focus:border-primary dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700"
                 onChange={(e) => handleSortChange(e.target.value)}
                 value={filters.sort}
               >
