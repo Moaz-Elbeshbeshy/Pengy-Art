@@ -28,8 +28,8 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
   if (error) {
     return (
       <div className="text-center py-10">
-        <h3 className="text-xl font-medium text-red-600">Error loading products</h3>
-        <p className="text-gray-600 mt-2">{error.message}</p>
+        <h3 className="text-xl font-medium text-red-600 dark:text-red-400">Error loading products</h3>
+        <p className="text-gray-600 dark:text-gray-300 mt-2">{error.message}</p>
       </div>
     );
   }
@@ -39,11 +39,11 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {Array.from({ length: 6 }).map((_, index) => (
-          <Card key={index} className="overflow-hidden">
-            <Skeleton className="h-48 w-full" />
+          <Card key={index} className="overflow-hidden dark:bg-gray-800 dark:border-gray-700">
+            <Skeleton className="h-48 w-full dark:bg-gray-700" />
             <CardContent className="p-4">
-              <Skeleton className="h-5 w-3/4 mb-2 mt-2" />
-              <Skeleton className="h-4 w-1/3" />
+              <Skeleton className="h-5 w-3/4 mb-2 mt-2 dark:bg-gray-700" />
+              <Skeleton className="h-4 w-1/3 dark:bg-gray-700" />
             </CardContent>
           </Card>
         ))}
@@ -55,8 +55,8 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
   if (products.length === 0) {
     return (
       <div className="text-center py-10">
-        <h3 className="text-xl font-medium text-gray-900">No products found</h3>
-        <p className="text-gray-600 mt-2">Try adjusting your filters to find what you're looking for.</p>
+        <h3 className="text-xl font-medium text-gray-900 dark:text-gray-100">No products found</h3>
+        <p className="text-gray-600 dark:text-gray-300 mt-2">Try adjusting your filters to find what you're looking for.</p>
       </div>
     );
   }
@@ -65,9 +65,9 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {products.map((product, index) => (
-        <Card key={product.id} className="overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+        <Card key={product.id} className="overflow-hidden shadow-sm hover:shadow-md transition-shadow dark:bg-gray-800 dark:border-gray-700">
           <a href={`/product/${product.id}`} className="block">
-            <div className="relative h-60 bg-gray-100 overflow-hidden">
+            <div className="relative h-60 bg-gray-100 dark:bg-gray-700 overflow-hidden">
               <img 
                 src={product.image || artworkImages[index % artworkImages.length]} 
                 alt={product.name} 
@@ -75,23 +75,23 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
               />
               {product.featured && (
                 <div className="absolute top-2 right-2">
-                  <Badge className="bg-blue-500">Featured</Badge>
+                  <Badge className="bg-blue-500 dark:bg-blue-600">Featured</Badge>
                 </div>
               )}
             </div>
             <CardContent className="p-4">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-medium text-gray-900 text-lg">{product.name}</h3>
-                  <p className="text-gray-500 text-sm">{product.brand}</p>
+                  <h3 className="font-medium text-gray-900 dark:text-gray-100 text-lg">{product.name}</h3>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">{product.brand}</p>
                 </div>
-                <p className="font-bold text-blue-600">${product.price.toFixed(2)}</p>
+                <p className="font-bold text-blue-600 dark:text-blue-400">${product.price.toFixed(2)}</p>
               </div>
               
               <div className="mt-3">
                 <div className="flex flex-wrap gap-1 mt-2">
                   {product.size && product.size.map((category, idx) => (
-                    <Badge key={idx} variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                    <Badge key={idx} variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:border-blue-800">
                       {category}
                     </Badge>
                   ))}
@@ -99,7 +99,7 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
                 
                 <div className="flex flex-wrap gap-1 mt-2">
                   {product.color && product.color.map((material, idx) => (
-                    <Badge key={idx} variant="outline" className="bg-gray-50 text-gray-700 border-gray-200">
+                    <Badge key={idx} variant="outline" className="bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700">
                       {material}
                     </Badge>
                   ))}

@@ -15,12 +15,6 @@ interface FilterSidebarProps {
 // Art materials
 const materials = ['Oil', 'Watercolor', 'Acrylic', 'Airbrush', 'Color', 'Ink', 'Latex'];
 
-// Artists (replacing styles and subjects)
-const artists = [
-  'Sarah Johnson', 'Michael Chen', 'Elena Rodriguez', 'Jamal Wilson',
-  'Olivia Kim', 'Alex Thompson', 'Isabella Martinez', 'Daniel Lee'
-];
-
 // Art categories
 const categories = ['Cartoon Characters', 'Face Portraits', 'Digital Art'];
 
@@ -111,25 +105,7 @@ export default function FilterSidebar({
           </div>
         </div>
         
-        {/* Artists Filter */}
-        <div className="mb-6">
-          <h3 className="text-sm font-semibold uppercase mb-3">ARTISTS</h3>
-          <div className="space-y-2 max-h-60 overflow-y-auto pr-2">
-            {artists.map((artist) => (
-              <div key={artist} className="flex items-center">
-                <Checkbox 
-                  id={`artist-${artist}`} 
-                  checked={currentFilters.brand.includes(artist)}
-                  onCheckedChange={(checked) => onBrandChange(artist, checked === true)}
-                  className="h-4 w-4 text-blue-500 rounded border-gray-300"
-                />
-                <Label htmlFor={`artist-${artist}`} className="ml-2 text-sm text-gray-600">
-                  {artist}
-                </Label>
-              </div>
-            ))}
-          </div>
-        </div>
+
       </div>
     </aside>
   );
