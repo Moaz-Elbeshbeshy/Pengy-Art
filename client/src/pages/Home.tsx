@@ -64,7 +64,12 @@ export default function Home() {
 
   const queryString = getQueryParams();
   
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<{
+    products: Product[];
+    totalPages: number;
+    count: number;
+    currentPage: number;
+  }>({
     queryKey: [`/api/v1/products?${queryString}`],
   });
 
@@ -131,9 +136,25 @@ export default function Home() {
         <div className="text-sm">
           <a href="/" className="text-gray-500 hover:text-gray-700">Home</a> 
           <span className="text-gray-400 mx-1">/</span> 
-          <span className="text-gray-700 font-medium">Women</span>
+          <span className="text-gray-700 font-medium">Artwork</span>
         </div>
-        <h1 className="text-2xl font-bold mt-2 mb-6">WOMEN</h1>
+        <h1 className="text-2xl font-bold mt-2 mb-6">PENGY ARTWORK COLLECTION</h1>
+        
+        {/* Art Categories */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <a href="/?category=cartoon" className="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+            <h2 className="font-medium text-lg mb-2 text-blue-700">Cartoon Characters</h2>
+            <p className="text-sm text-gray-600">Drawn on the Walls of Rooms</p>
+          </a>
+          <a href="/?category=portraits" className="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+            <h2 className="font-medium text-lg mb-2 text-blue-700">Face Portraits</h2>
+            <p className="text-sm text-gray-600">Pencil and Ink Sketches</p>
+          </a>
+          <a href="/?category=digital" className="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+            <h2 className="font-medium text-lg mb-2 text-blue-700">Digital Art</h2>
+            <p className="text-sm text-gray-600">Modern Digital Creations</p>
+          </a>
+        </div>
       </div>
       
       {/* Main Content */}

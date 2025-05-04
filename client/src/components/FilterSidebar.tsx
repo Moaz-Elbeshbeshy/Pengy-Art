@@ -12,9 +12,17 @@ interface FilterSidebarProps {
   onBrandChange: (brand: string, checked: boolean) => void;
 }
 
-const sizes = ['S', 'M', 'L', 'XL'];
-const colors = ['Purple', 'Blue', 'Black', 'White', 'Red', 'Pink', 'Green', 'Brown'];
-const brands = ['Converse', 'Nike', 'Adidas', 'Puma', 'Reebok'];
+// Art materials
+const materials = ['Oil', 'Watercolor', 'Acrylic', 'Airbrush', 'Color', 'Ink', 'Latex'];
+
+// Art styles and subjects
+const styles = [
+  'Fine Art', 'Abstract', 'Modern', 'Street Art', 'Pop Art', 'Impressionism', 'Photorealism', 
+  'Portrait', 'Landscape', 'Nature', 'Still Life', 'Beach', 'Nude', 'Floral', 'Animal'
+];
+
+// Art categories
+const categories = ['Cartoon Characters', 'Face Portraits', 'Digital Art'];
 
 export default function FilterSidebar({
   currentFilters,
@@ -37,7 +45,7 @@ export default function FilterSidebar({
   return (
     <aside className="w-full md:w-64 lg:w-72 shrink-0">
       <div className="sticky top-20">
-        <h2 className="text-sm font-semibold uppercase mb-4">SHOP BY</h2>
+        <h2 className="text-sm font-semibold uppercase mb-4">FILTER BY</h2>
         
         {/* Price Filter */}
         <div className="mb-6">
@@ -63,60 +71,60 @@ export default function FilterSidebar({
           </div>
         </div>
         
-        {/* Size Filter */}
+        {/* Categories Filter */}
         <div className="mb-6">
-          <h3 className="text-sm font-semibold uppercase mb-3">SIZE</h3>
+          <h3 className="text-sm font-semibold uppercase mb-3">CATEGORIES</h3>
           <div className="space-y-2">
-            {sizes.map((size) => (
-              <div key={size} className="flex items-center">
+            {categories.map((category) => (
+              <div key={category} className="flex items-center">
                 <Checkbox 
-                  id={`size-${size}`} 
-                  checked={currentFilters.size.includes(size)}
-                  onCheckedChange={(checked) => onSizeChange(size, checked === true)}
-                  className="h-4 w-4 text-primary rounded border-gray-300"
+                  id={`category-${category}`} 
+                  checked={currentFilters.size.includes(category)}
+                  onCheckedChange={(checked) => onSizeChange(category, checked === true)}
+                  className="h-4 w-4 text-blue-500 rounded border-gray-300"
                 />
-                <Label htmlFor={`size-${size}`} className="ml-2 text-sm text-gray-600">
-                  {size}
+                <Label htmlFor={`category-${category}`} className="ml-2 text-sm text-gray-600">
+                  {category}
                 </Label>
               </div>
             ))}
           </div>
         </div>
         
-        {/* Color Filter */}
+        {/* Materials Filter */}
         <div className="mb-6">
-          <h3 className="text-sm font-semibold uppercase mb-3">COLOR</h3>
+          <h3 className="text-sm font-semibold uppercase mb-3">MEDIUMS & MATERIALS</h3>
           <div className="space-y-2">
-            {colors.map((color) => (
-              <div key={color} className="flex items-center">
+            {materials.map((material) => (
+              <div key={material} className="flex items-center">
                 <Checkbox 
-                  id={`color-${color}`} 
-                  checked={currentFilters.color.includes(color.toLowerCase())}
-                  onCheckedChange={(checked) => onColorChange(color.toLowerCase(), checked === true)}
-                  className="h-4 w-4 text-primary rounded border-gray-300"
+                  id={`material-${material}`} 
+                  checked={currentFilters.color.includes(material.toLowerCase())}
+                  onCheckedChange={(checked) => onColorChange(material.toLowerCase(), checked === true)}
+                  className="h-4 w-4 text-blue-500 rounded border-gray-300"
                 />
-                <Label htmlFor={`color-${color}`} className="ml-2 text-sm text-gray-600">
-                  {color}
+                <Label htmlFor={`material-${material}`} className="ml-2 text-sm text-gray-600">
+                  {material}
                 </Label>
               </div>
             ))}
           </div>
         </div>
         
-        {/* Brand Filter */}
+        {/* Styles & Subjects Filter */}
         <div className="mb-6">
-          <h3 className="text-sm font-semibold uppercase mb-3">BRAND</h3>
-          <div className="space-y-2">
-            {brands.map((brand) => (
-              <div key={brand} className="flex items-center">
+          <h3 className="text-sm font-semibold uppercase mb-3">STYLES & SUBJECTS</h3>
+          <div className="space-y-2 max-h-60 overflow-y-auto pr-2">
+            {styles.map((style) => (
+              <div key={style} className="flex items-center">
                 <Checkbox 
-                  id={`brand-${brand}`} 
-                  checked={currentFilters.brand.includes(brand.toLowerCase())}
-                  onCheckedChange={(checked) => onBrandChange(brand.toLowerCase(), checked === true)}
-                  className="h-4 w-4 text-primary rounded border-gray-300"
+                  id={`style-${style}`} 
+                  checked={currentFilters.brand.includes(style.toLowerCase())}
+                  onCheckedChange={(checked) => onBrandChange(style.toLowerCase(), checked === true)}
+                  className="h-4 w-4 text-blue-500 rounded border-gray-300"
                 />
-                <Label htmlFor={`brand-${brand}`} className="ml-2 text-sm text-gray-600">
-                  {brand}
+                <Label htmlFor={`style-${style}`} className="ml-2 text-sm text-gray-600">
+                  {style}
                 </Label>
               </div>
             ))}

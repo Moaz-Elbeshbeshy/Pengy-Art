@@ -1,6 +1,7 @@
 import { Product } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Badge } from '@/components/ui/badge';
 
 interface ProductGridProps {
   products: Product[];
@@ -8,18 +9,18 @@ interface ProductGridProps {
   error: Error | null;
 }
 
-// Product shoe image URLs
-const shoeImages = [
-  'https://images.unsplash.com/photo-1542291026-7eec264c27ff',
-  'https://images.unsplash.com/photo-1549298916-b41d501d3772',
-  'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa',
-  'https://images.unsplash.com/photo-1608231387042-66d1773070a5',
-  'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519',
-  'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a',
-  'https://images.unsplash.com/photo-1584735175315-9d5df23be5c8',
-  'https://images.unsplash.com/photo-1560343090-f0409e92791a',
-  'https://images.unsplash.com/photo-1552346154-21d32810aba3',
-  'https://images.unsplash.com/photo-1608231387042-66d1773070a5',
+// Artwork image URLs
+const artworkImages = [
+  'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5', // Colorful abstract art
+  'https://images.unsplash.com/photo-1547891654-e66ed7ebb968', // Portrait art
+  'https://images.unsplash.com/photo-1549490349-8643362247b5', // Modern digital art
+  'https://images.unsplash.com/photo-1574182245530-967d9b3831af', // Street art
+  'https://images.unsplash.com/photo-1571115764595-644a1f56a55c', // Watercolor painting
+  'https://images.unsplash.com/photo-1558697702-9f517a5a0b05', // Pop art
+  'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8', // Oil painting
+  'https://images.unsplash.com/photo-1637340532483-9ac801331e35', // Cartoon style
+  'https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb', // Landscape painting
+  'https://images.unsplash.com/photo-1596726038553-9b63eef0df73', // Digital portrait
 ];
 
 export default function ProductGrid({ products, isLoading, error }: ProductGridProps) {
@@ -66,16 +67,44 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
       {products.map((product, index) => (
         <Card key={product.id} className="overflow-hidden shadow-sm hover:shadow-md transition-shadow">
           <a href={`/product/${product.id}`} className="block">
-            <div className="h-48 bg-gray-100 overflow-hidden">
+            <div className="relative h-60 bg-gray-100 overflow-hidden">
               <img 
-                src={product.image || shoeImages[index % shoeImages.length]} 
+                src={product.image || artworkImages[index % artworkImages.length]} 
                 alt={product.name} 
                 className="w-full h-full object-cover object-center transition-transform hover:scale-105"
               />
+              {product.featured && (
+                <div className="absolute top-2 right-2">
+                  <Badge className="bg-blue-500">Featured</Badge>
+                </div>
+              )}
             </div>
             <CardContent className="p-4">
-              <h3 className="font-medium text-gray-900">{product.name}</h3>
-              <p className="text-gray-700 mt-1">${product.price.toFixed(2)}</p>
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-medium text-gray-900 text-lg">{product.name}</h3>
+                  <p className="text-gray-500 text-sm">{product.brand}</p>
+                </div>
+                <p className="font-bold text-blue-600">${product.price.toFixed(2)}</p>
+              </div>
+              
+              <div className="mt-3">
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {product.size && product.size.map((category, idx) => (
+                    <Badge key={idx} variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                      {category}
+                    </Badge>
+                  ))}
+                </div>
+                
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {product.color && product.color.map((material, idx) => (
+                    <Badge key={idx} variant="outline" className="bg-gray-50 text-gray-700 border-gray-200">
+                      {material}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
             </CardContent>
           </a>
         </Card>
