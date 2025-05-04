@@ -1,0 +1,102 @@
+Website Pages
+The site should only have two pages:
+
+Home Page – shows all artworks with filters and search.
+
+Details Page – shows full details of the selected artwork (based on the attached image layout).
+
+🧭 Navigation and Layout
+Remove any Home/Artwork or extra navigation items.
+
+In the top navigation bar:
+
+Remove cart and login icons.
+
+Move the logo all the way to the left, followed by the brand name: Pengy Art.
+
+Do not include:
+
+About Us page.
+
+Styles & Subjects section from the sidebar.
+
+Featured Artists section in the Explore area.
+
+Visa, PayPal, and Mastercard logos from the footer.
+
+Footer:
+
+Display this line centered at the bottom:
+© 2025 Pengy Art. All Rights Reserved.
+
+🖼️ Home Page Functionality
+Display artworks grouped into three main categories:
+
+Cartoon characters drawn on the walls of rooms
+
+Sketches of face portraits
+
+Digital art
+
+In the left sidebar:
+
+Categories: Clicking a category should update the URL with a query (e.g., ?category=cartoon) and filter the artworks shown.
+
+Mediums & Materials:
+
+Oil
+
+Watercolor
+
+Acrylic
+
+Airbrush
+
+Color
+
+Ink
+
+Latex
+Selecting any material should also update the query (e.g., ?material=ink) and filter the results accordingly.
+
+Keep the price filter bar as-is (same styling and functionality).
+
+Search bar:
+
+Add a search input to allow users to filter artworks by full or partial name.
+
+Sort options:
+
+Sort by price (Low to High / High to Low)
+
+Sort by name (A-Z / Z-A)
+
+Pagination:
+
+Include pagination controls using page and limit query params.
+
+📄 Details Page
+When an artwork is clicked on the homepage, navigate to a details page with:
+
+A large image of the art
+
+Title
+
+Description
+
+Category
+
+Medium/Material
+
+Price
+
+🧠 Backend Integration
+The backend will be built with Node.js, Express, and Mongoose, and will be connected to MongoDB Atlas.
+
+The frontend should connect to these API endpoints:
+
+GET /products – with support for query params:
+category, material, price, name, sort, page, limit
+
+GET /products/:id – to get single artwork details.
+

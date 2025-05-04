@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, User, ShoppingBag } from 'lucide-react';
+import { Search } from 'lucide-react';
 import pengyLogo from '../assets/pengy-logo.png';
 
 interface HeaderProps {
@@ -21,18 +21,14 @@ export default function Header({ onSearch }: HeaderProps) {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-10">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center space-x-6">
-          <a href="/" className="text-blue-500 font-semibold flex items-center">
-            Pengy Art
+        <div className="flex items-center space-x-4">
+          <a href="/" className="flex items-center">
+            <img src={pengyLogo} alt="Pengy" className="h-10" />
+            <span className="text-blue-600 font-semibold text-lg ml-3">Pengy Art</span>
           </a>
-          <a href="#" className="text-gray-600 hover:text-gray-900">About us</a>
         </div>
         
-        <a href="/" className="flex items-center justify-center">
-          <img src={pengyLogo} alt="Pengy" className="h-12" />
-        </a>
-        
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center">
           {isSearchOpen ? (
             <form onSubmit={handleSubmit} className="relative">
               <input
@@ -58,15 +54,6 @@ export default function Header({ onSearch }: HeaderProps) {
               <Search className="h-5 w-5" />
             </button>
           )}
-          <button className="text-gray-600 hover:text-gray-900">
-            <User className="h-5 w-5" />
-          </button>
-          <button className="text-gray-600 hover:text-gray-900 relative">
-            <ShoppingBag className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 bg-blue-500 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center">
-              0
-            </span>
-          </button>
         </div>
       </div>
     </header>
