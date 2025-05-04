@@ -3,139 +3,139 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 
-// Mock product data for demo
+// Mock product data for art store
 const mockProducts = [
   {
     id: 1,
-    name: "Nike revolution 5",
+    name: "Vibrant Dreamscape",
     price: 215.00,
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-    brand: "Nike",
-    company: "nike",
+    image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5",
+    brand: "Sarah Johnson",
+    company: "abstract",
     featured: true,
-    size: ["S", "M", "L"],
-    color: ["blue", "white"]
+    size: ["Cartoon Characters", "Digital Art"],
+    color: ["acrylic", "oil"]
   },
   {
     id: 2,
-    name: "Nike court vision low",
-    price: 104.00,
-    image: "https://images.unsplash.com/photo-1549298916-b41d501d3772",
-    brand: "Nike",
-    company: "nike",
+    name: "Serene Portrait",
+    price: 184.00,
+    image: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968",
+    brand: "Michael Chen",
+    company: "portrait",
     featured: false,
-    size: ["M", "L", "XL"],
-    color: ["white", "blue"]
+    size: ["Face Portraits"],
+    color: ["oil", "watercolor"]
   },
   {
     id: 3,
-    name: "Nike odyssey react flyknit 2",
+    name: "Digital Landscape",
     price: 127.00,
-    image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
-    brand: "Nike",
-    company: "nike",
+    image: "https://images.unsplash.com/photo-1549490349-8643362247b5",
+    brand: "Elena Rodriguez",
+    company: "digital",
     featured: true,
-    size: ["S", "M"],
-    color: ["purple"]
+    size: ["Digital Art"],
+    color: ["digital", "color"]
   },
   {
     id: 4,
-    name: "Nike drop-type premium",
+    name: "Urban Expression",
     price: 174.00,
-    image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5",
-    brand: "Nike",
-    company: "nike",
+    image: "https://images.unsplash.com/photo-1574182245530-967d9b3831af",
+    brand: "Jamal Wilson",
+    company: "street",
     featured: false,
-    size: ["L", "XL"],
-    color: ["green"]
+    size: ["Cartoon Characters"],
+    color: ["acrylic", "airbrush"]
   },
   {
     id: 5,
-    name: "Nike air presto by you",
+    name: "Nature's Whisper",
     price: 165.00,
-    image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519",
-    brand: "Nike",
-    company: "nike",
+    image: "https://images.unsplash.com/photo-1571115764595-644a1f56a55c",
+    brand: "Olivia Kim",
+    company: "nature",
     featured: true,
-    size: ["S", "M", "L"],
-    color: ["green", "blue"]
+    size: ["Digital Art"],
+    color: ["watercolor", "ink"]
   },
   {
     id: 6,
-    name: "Seasonal color chuck 70",
-    price: 89.00,
-    image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a",
-    brand: "Converse",
-    company: "converse",
+    name: "Pop Culture Icons",
+    price: 189.00,
+    image: "https://images.unsplash.com/photo-1558697702-9f517a5a0b05",
+    brand: "Alex Thompson",
+    company: "pop",
     featured: true,
-    size: ["S", "M"],
-    color: ["purple"]
+    size: ["Cartoon Characters"],
+    color: ["acrylic", "color"]
   },
   {
     id: 7,
-    name: "Chuck taylor all star move",
-    price: 91.00,
-    image: "https://images.unsplash.com/photo-1584735175315-9d5df23be5c8",
-    brand: "Converse",
-    company: "converse",
+    name: "Classic Still Life",
+    price: 291.00,
+    image: "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8",
+    brand: "Isabella Martinez",
+    company: "still-life",
     featured: false,
-    size: ["M", "L"],
-    color: ["pink"]
+    size: ["Face Portraits"],
+    color: ["oil"]
   },
   {
     id: 8,
-    name: "Jack purcell leather",
-    price: 107.00,
-    image: "https://images.unsplash.com/photo-1560343090-f0409e92791a",
-    brand: "Converse",
-    company: "converse",
+    name: "Room Wall Characters",
+    price: 207.00,
+    image: "https://images.unsplash.com/photo-1637340532483-9ac801331e35",
+    brand: "Daniel Lee",
+    company: "cartoon",
     featured: false,
-    size: ["S", "XL"],
-    color: ["white"]
+    size: ["Cartoon Characters"],
+    color: ["latex", "acrylic"]
   },
   {
     id: 9,
-    name: "Custom chuck taylor all star by you",
-    price: 64.00,
-    image: "https://images.unsplash.com/photo-1552346154-21d32810aba3",
-    brand: "Converse",
-    company: "converse",
+    name: "Mountain Serenity",
+    price: 164.00,
+    image: "https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb",
+    brand: "Sophie Miller",
+    company: "landscape",
     featured: true,
-    size: ["S", "M", "L", "XL"],
-    color: ["blue", "purple"]
+    size: ["Digital Art"],
+    color: ["oil", "acrylic"]
   },
   {
     id: 10,
-    name: "Senseboost go shoes",
+    name: "Digital Portrait Study",
     price: 125.00,
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-    brand: "Adidas",
-    company: "adidas",
+    image: "https://images.unsplash.com/photo-1596726038553-9b63eef0df73",
+    brand: "Ryan Parker",
+    company: "portrait",
     featured: false,
-    size: ["M", "L"],
-    color: ["blue", "black"]
+    size: ["Face Portraits", "Digital Art"],
+    color: ["digital", "color"]
   },
   {
     id: 11,
-    name: "Lite racer adapt 3.0 shoes",
-    price: 85.00,
-    image: "https://images.unsplash.com/photo-1549298916-b41d501d3772",
-    brand: "Adidas",
-    company: "adidas",
+    name: "Abstract Emotions",
+    price: 185.00,
+    image: "https://images.unsplash.com/photo-1565799557186-1272a69ebc4a",
+    brand: "Emma Davis",
+    company: "abstract",
     featured: true,
-    size: ["S", "M"],
-    color: ["white"]
+    size: ["Digital Art"],
+    color: ["watercolor", "ink"]
   },
   {
     id: 12,
-    name: "Edge gameday shoes",
-    price: 95.00,
-    image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
-    brand: "Adidas",
-    company: "adidas",
+    name: "Character Composition",
+    price: 195.00,
+    image: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9",
+    brand: "Noah Garcia",
+    company: "cartoon",
     featured: false,
-    size: ["L", "XL"],
-    color: ["blue", "black"]
+    size: ["Cartoon Characters"],
+    color: ["acrylic", "color"]
   }
 ];
 
@@ -255,11 +255,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (fields) {
         const fieldsList = fields.split(',');
         projectedProducts = filteredProducts.map(product => {
-          const result: Record<string, any> = {};
-          fieldsList.forEach(field => {
-            // @ts-ignore - we know these fields exist
-            result[field] = product[field];
-          });
+          const result = { ...product }; // Start with a copy of the product
+          const keys = Object.keys(product);
+          
+          // Keep only the requested fields
+          for (const key of keys) {
+            if (!fieldsList.includes(key)) {
+              // @ts-ignore - we're dynamically removing properties
+              delete result[key];
+            }
+          }
+          
           return result;
         });
       }

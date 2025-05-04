@@ -2,7 +2,36 @@ export default function Footer() {
   return (
     <footer className="bg-white border-t border-gray-200 py-8 mt-auto">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div>
+            <h3 className="font-semibold text-gray-800 mb-4">Pengy Art</h3>
+            <p className="text-gray-600 text-sm">
+              Showcasing exceptional artwork from talented artists around the world. 
+              Discover unique pieces that will transform your space.
+            </p>
+          </div>
+          
+          <div>
+            <h3 className="font-semibold text-gray-800 mb-4">Explore</h3>
+            <ul className="space-y-2 text-sm">
+              <li><a href="/?category=cartoon" className="text-gray-600 hover:text-blue-500">Cartoon Characters</a></li>
+              <li><a href="/?category=portraits" className="text-gray-600 hover:text-blue-500">Face Portraits</a></li>
+              <li><a href="/?category=digital" className="text-gray-600 hover:text-blue-500">Digital Art</a></li>
+              <li><a href="/featured" className="text-gray-600 hover:text-blue-500">Featured Artists</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="font-semibold text-gray-800 mb-4">Contact</h3>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li>Email: info@pengyart.com</li>
+              <li>Phone: (123) 456-7890</li>
+              <li>Address: 123 Art Avenue, Creative District</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className="pt-6 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center">
           <div className="flex space-x-4">
             {/* Payment method icons */}
             <div className="h-6 w-10 bg-gray-100 rounded flex items-center justify-center">
@@ -34,7 +63,7 @@ export default function Footer() {
               </svg>
             </div>
           </div>
-          <p className="text-sm text-gray-500">© 2023 FootShop. All Rights Reserved.</p>
+          <p className="text-sm text-gray-500 mt-4 md:mt-0">© 2025 Pengy Art. All Rights Reserved.</p>
         </div>
       </div>
     </footer>
