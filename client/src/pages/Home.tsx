@@ -168,30 +168,8 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header onSearch={handleSearchChange} />
       
-      {/* Breadcrumbs */}
       <div className="container mx-auto px-4 py-4">
-        <div className="text-sm">
-          <a href="/" className="text-gray-500 hover:text-gray-700">Home</a> 
-          <span className="text-gray-400 mx-1">/</span> 
-          <span className="text-gray-700 font-medium">Artwork</span>
-        </div>
-        <h1 className="text-2xl font-bold mt-2 mb-6">PENGY ARTWORK COLLECTION</h1>
-        
-        {/* Art Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <a href="/?category=cartoon" className="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
-            <h2 className="font-medium text-lg mb-2 text-blue-700">Cartoon Characters</h2>
-            <p className="text-sm text-gray-600">Drawn on the Walls of Rooms</p>
-          </a>
-          <a href="/?category=portraits" className="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
-            <h2 className="font-medium text-lg mb-2 text-blue-700">Face Portraits</h2>
-            <p className="text-sm text-gray-600">Pencil and Ink Sketches</p>
-          </a>
-          <a href="/?category=digital" className="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
-            <h2 className="font-medium text-lg mb-2 text-blue-700">Digital Art</h2>
-            <p className="text-sm text-gray-600">Modern Digital Creations</p>
-          </a>
-        </div>
+        <h1 className="text-2xl font-bold mt-4 mb-6">PENGY ARTWORK COLLECTION</h1>
       </div>
       
       {/* Main Content */}

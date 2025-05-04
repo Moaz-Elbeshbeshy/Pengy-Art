@@ -215,35 +215,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Apply numeric filters (price, etc.)
       if (numericFilters) {
-        const operatorMap = {
-          '>': (a: number, b: number) => a > b,
-          '>=': (a: number, b: number) => a >= b,
-          '=': (a: number, b: number) => a === b,
-          '<': (a: number, b: number) => a < b,
-          '<=': (a: number, b: number) => a <= b,
-        };
-        
-        const regEx = /\b(>|>=|=|<|<=)\b/g;
-        const filters = numericFilters.split(',').map(filter => {
-          const [field, operator, value] = filter.replace(
-            regEx,
-            (match) => `-${match}-`
-          ).split('-');
+        try {
+          const operatorMap: Record<string, (a: number, b: number) => boolean> = {
+            '>': (a: number, b: number) => a > b,
+            '>=': (a: number, b: number) => a >= b,
+            '=': (a: number, b: number) => a === b,
+            '<': (a: number, b: number) => a < b,
+            '<=': (a: number, b: number) => a <= b,
+          };
           
-          if (field && operator && value) {
-            return { field, operator, value: parseFloat(value) };
-          }
-          return null;
-        }).filter(Boolean);
-
-        filteredProducts = filteredProducts.filter(product => {
-          return filters.every(filter => {
-            if (!filter) return true;
-            const { field, operator, value } = filter;
-            // @ts-ignore - we know these fields exist
-            return operatorMap[operator](product[field], value);
+          const regEx = /\b(>|>=|=|<|<=)\b/g;
+          const filtersArray = Array.isArray(numericFilters) ? numericFilters : [numericFilters];
+          
+          const filters = filtersArray.map(filterString => {
+            // Replace operators with delimiter versions
+            const parts = filterString.replace(regEx, (match) => `-${match}-`).split('-');
+            
+            // Handle case where parts might be empty strings
+            const field = parts.filter(Boolean)[0];
+            const operator = parts.filter(Boolean)[1];
+            const value = parts.filter(Boolean)[2];
+            
+            if (field && operator && value && operatorMap[operator]) {
+              return { field, operator, value: parseFloat(value) };
+            }
+            return null;
+          }).filter(Boolean);
+          
+          filteredProducts = filteredProducts.filter(product => {
+            return filters.every(filter => {
+              if (!filter) return true;
+              const { field, operator, value } = filter;
+              if (typeof product[field as keyof typeof product] === 'number' && operatorMap[operator]) {
+                return operatorMap[operator](product[field as keyof typeof product] as number, value);
+              }
+              return true;
+            });
           });
-        });
+        } catch (error) {
+          console.error('Error processing numeric filters:', error);
+          // Continue with unfiltered products rather than failing completely
+        }
       }
 
       // Sort products

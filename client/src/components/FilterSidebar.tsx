@@ -15,10 +15,10 @@ interface FilterSidebarProps {
 // Art materials
 const materials = ['Oil', 'Watercolor', 'Acrylic', 'Airbrush', 'Color', 'Ink', 'Latex'];
 
-// Art styles and subjects
-const styles = [
-  'Fine Art', 'Abstract', 'Modern', 'Street Art', 'Pop Art', 'Impressionism', 'Photorealism', 
-  'Portrait', 'Landscape', 'Nature', 'Still Life', 'Beach', 'Nude', 'Floral', 'Animal'
+// Artists (replacing styles and subjects)
+const artists = [
+  'Sarah Johnson', 'Michael Chen', 'Elena Rodriguez', 'Jamal Wilson',
+  'Olivia Kim', 'Alex Thompson', 'Isabella Martinez', 'Daniel Lee'
 ];
 
 // Art categories
@@ -111,20 +111,20 @@ export default function FilterSidebar({
           </div>
         </div>
         
-        {/* Styles & Subjects Filter */}
+        {/* Artists Filter */}
         <div className="mb-6">
-          <h3 className="text-sm font-semibold uppercase mb-3">STYLES & SUBJECTS</h3>
+          <h3 className="text-sm font-semibold uppercase mb-3">ARTISTS</h3>
           <div className="space-y-2 max-h-60 overflow-y-auto pr-2">
-            {styles.map((style) => (
-              <div key={style} className="flex items-center">
+            {artists.map((artist) => (
+              <div key={artist} className="flex items-center">
                 <Checkbox 
-                  id={`style-${style}`} 
-                  checked={currentFilters.brand.includes(style.toLowerCase())}
-                  onCheckedChange={(checked) => onBrandChange(style.toLowerCase(), checked === true)}
+                  id={`artist-${artist}`} 
+                  checked={currentFilters.brand.includes(artist)}
+                  onCheckedChange={(checked) => onBrandChange(artist, checked === true)}
                   className="h-4 w-4 text-blue-500 rounded border-gray-300"
                 />
-                <Label htmlFor={`style-${style}`} className="ml-2 text-sm text-gray-600">
-                  {style}
+                <Label htmlFor={`artist-${artist}`} className="ml-2 text-sm text-gray-600">
+                  {artist}
                 </Label>
               </div>
             ))}
